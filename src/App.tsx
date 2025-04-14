@@ -1,14 +1,12 @@
-import { Button } from "./components/ui/button"
+import Hero from './components/Hero'
+import Navbar from './components/shared/Navbar'
 
 function App() {
 
-  const clickHandle = () => {
-    alert("Button clicked");
-  }
-
   return (
     <>
-      <Button onClick={clickHandle}>Click Me</Button>
+      <Navbar />
+      <Hero />
     </>
   )
 }
