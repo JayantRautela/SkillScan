@@ -9,7 +9,7 @@ const Hero = () => {
         <p className="text-muted-foreground my-4">Unlock your potential with personalized resume analysis and tailored <br />improvement paths. Our service empowers you to stand out in the <br />job market and achieve your carrer goals</p>
       </section>
       <div className="py-6">
-        <Button className="bg-blue-500">Upload Resume</Button>
+        <Button className="bg-blue-500 hover:bg-blue-600 cursor-pointer">Upload Resume</Button>
       </div>
       <div className="text-muted-foreground pb-6">
         Rated 5/5 from over 500 reviews
