@@ -13,7 +13,6 @@ const Features = () => {
         </div>
         <div className="mx-auto bg-black w-[62%] h-48 rounded-lg"></div>
       </div>
-      <div className="border-4 border-black mt-8"></div>
     </div>
   )
 }

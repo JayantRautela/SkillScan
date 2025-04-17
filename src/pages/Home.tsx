@@ -1,3 +1,4 @@
+import Analyze from "@/components/Analyze"
 import Features from "@/components/Features"
 import Hero from "@/components/Hero"
 import Secondary from "@/components/Secondary"
@@ -11,6 +12,7 @@ const Home = () => {
       <Hero />
       <Secondary />
       <Features />
+      <Analyze />
       <Footer />
     </div>
   )
