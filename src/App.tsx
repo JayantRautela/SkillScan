@@ -1,6 +1,7 @@
 import Home from "./pages/Home"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Signup from "./pages/Signup"
+import { Toaster } from "./components/ui/sonner";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <Toaster />
     </>
   )
 }
