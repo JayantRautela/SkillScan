@@ -1,10 +1,73 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { toast } from "sonner";
+import axios from "axios";
+
+interface FormState {
+  username: string;
+  email: string;
+  password: string;
+}
 
 const SignupForm = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormState>(
+    {
+      username: "",
+      email: "",
+      password : "",
+    }
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({...prev, [name]: value}));
+  }
+
+  const submitForm = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const sendFormData = new FormData();
+
+    sendFormData.append("email", formData.email);
+    sendFormData.append("password", formData.password);
+    sendFormData.append("username", formData.username);
+
+    try {
+      setIsSubmitting(true);
+      const response = await axios.post('http://localhost:3000/api/v1/users/register',
+        sendFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true
+        }
+      );
+
+      console.log(`Upload Success: ${response}`);
+      if (response.status === 201) {
+        toast.success("User Registered Successfully");
+        // TODO: navigate to login page
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error(error.message);
+      }
+    } finally {
+      setIsSubmitting(false);
+      setFormData({ 
+        username: "", 
+        email: "",
+        password: "" 
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen w-full bg-white flex items-center justify-center px-4">
@@ -15,7 +78,7 @@ const SignupForm = () => {
           </h1>
         </section>
 
-        <form className="flex flex-col gap-6">
+        <form className="flex flex-col gap-6" onSubmit={submitForm}>
           <div className="flex flex-col gap-2">
             <Label htmlFor="email" className="text-base text-gray-700">
               Email
@@ -23,9 +86,14 @@ const SignupForm = () => {
             <Input
               id="email"
               type="email"
+              name="email"
               placeholder="Enter your email"
               className="text-base border border-gray-300 focus:ring-2 focus:ring-blue-400"
+              required
+              autoComplete="email"
               disabled={isSubmitting}
+              value={formData.email}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -36,9 +104,14 @@ const SignupForm = () => {
             <Input
               id="username"
               type="text"
+              name="username"
               placeholder="Choose a username"
               className="text-base border border-gray-300 focus:ring-2 focus:ring-blue-400"
+              required
+              autoComplete="username"
               disabled={isSubmitting}
+              value={formData.username}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -49,9 +122,14 @@ const SignupForm = () => {
             <Input
               id="password"
               type="password"
+              name="password"
               placeholder="Enter your password"
               className="text-base border border-gray-300 focus:ring-2 focus:ring-blue-400"
+              required
+              autoComplete="new-password"
               disabled={isSubmitting}
+              value={formData.password}
+              onChange={handleInputChange}
             />
           </div>
 
