@@ -4,6 +4,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { toast } from "sonner";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface FormState {
   username: string;
@@ -12,6 +13,7 @@ interface FormState {
 }
 
 const SignupForm = () => {
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormState>(
     {
@@ -50,15 +52,11 @@ const SignupForm = () => {
       console.log(`Upload Success: ${response}`);
       if (response.status === 201) {
         toast.success("User Registered Successfully");
-        // TODO: navigate to login page
+        navigate('/login');
       }
     } catch (error: any) {
-      console.log(error);
-      if (error.response.data.message) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error(error.message);
-      }
+      const message = error?.response?.data?.message || error?.message || "Some error occurred";
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
       setFormData({ 
