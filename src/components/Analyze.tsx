@@ -2,14 +2,24 @@ import { Button } from "./ui/button"
 
 const Analyze = () => {
   return (
-    <div className="w-full h-96 bg-black text-center p-10">
-      <section className="text-white px-8 mb-4">
-        <h1 className="text-4xl font-semibold mb-2">Analyze Your Resume</h1>
-        <p className="text-md">Ready to take your career to the next level?</p>
+    <div className="w-full min-h-[28rem] bg-black text-center px-4 py-10">
+      <section className="text-white max-w-2xl mx-auto mb-6 px-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">
+          Analyze Your Resume
+        </h1>
+        <p className="text-sm sm:text-md">
+          Ready to take your career to the next level?
+        </p>
       </section>
-      <div className="w-[30%] h-48 bg-white rounded-xl mx-auto mt-8 flex flex-col items-center justify-center">
-        <Button className="bg-blue-500 hover:bg-blue-600 cursor-pointer">Upload Resume</Button>
-        <p className="mt-8">or drop a Pdf, <br /><span>paste image or URL</span></p>
+
+      <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 h-64 bg-white rounded-xl mx-auto mt-8 flex flex-col items-center justify-center px-4 py-6 shadow-lg">
+        <Button className="bg-blue-500 hover:bg-blue-600 cursor-pointer w-fit">
+          Upload Resume
+        </Button>
+        <p className="mt-6 text-sm text-center">
+          or drop a PDF,<br />
+          <span className="text-gray-600">paste image or URL</span>
+        </p>
       </div>
     </div>
   )
