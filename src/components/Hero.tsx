@@ -1,10 +1,13 @@
 import { Button } from "./ui/button"
 import hero from "../assets/hero.jpg"
+import { useState } from "react";
+import UploadResume from "./UploadResume";
 
 const Hero = () => {
+  const [open, setOpen] = useState<boolean>(false);
   return (
-    <div className="w-full bg-black text-center px-4 py-8 sm:py-12 md:py-16">
-      <section className="pt-8 sm:pt-12 md:pt-16">
+    <div className="w-full bg-black text-center px-4 py-4 sm:py-8 md:py-12">
+      <section className="pt-8 sm:pt-12 md:pt-8">
         <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-wide leading-snug">
           Transform Your Resume,<br className="hidden sm:block" /> Elevate Your Career
         </h1>
@@ -15,9 +18,16 @@ const Hero = () => {
         </p>
       </section>
       <div className="py-4 sm:py-6">
-        <Button className="bg-blue-500 hover:bg-blue-600 cursor-pointer text-sm sm:text-base px-6 py-2">
+        <Button 
+          className="bg-blue-500 hover:bg-blue-600 cursor-pointer text-sm sm:text-base px-6 py-2"
+          onClick={() => setOpen(true)}
+        >
           Upload Resume
         </Button>
+        <UploadResume 
+          open={open}
+          onOpenChange={setOpen}
+        />
       </div>
       <div className="text-muted-foreground text-xs sm:text-sm pb-4 sm:pb-6">
         Rated 5/5 from over 500 reviews
