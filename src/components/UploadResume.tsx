@@ -153,7 +153,7 @@ const UploadResume = ({ open, onOpenChange }: PdfUploadDialogProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">Upload your resume</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-center">Upload your resume</DialogTitle>
           <DialogDescription className="text-gray-500 dark:text-gray-400">
             Upload your PDF resume to get professional analysis and improvement suggestions.
           </DialogDescription>
@@ -185,7 +185,7 @@ const UploadResume = ({ open, onOpenChange }: PdfUploadDialogProps) => {
               renderFilePreview()
             ) : (
               <div>
-                <Upload className={`h-12 w-12 mb-2 ${isDragging ? 'text-blue-500' : 'text-gray-400'}`} />
+                <Upload className={`h-12 w-12 mb-2 mx-auto ${isDragging ? 'text-blue-500' : 'text-gray-400'}`} />
                 <p className="font-medium text-gray-900 dark:text-gray-100">
                   {isDragging ? "Drop your PDF here" : "Drag and drop your PDF here"}
                 </p>
