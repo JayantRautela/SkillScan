@@ -111,6 +111,15 @@ const LoginForm = () => {
                 value={formData.password}
                 onChange={handleInputChange}
               />
+              <div className="text-right mt-1">
+                <button
+                  type="button"
+                  className="text-sm text-blue-500 hover:underline cursor-pointer"
+                  onClick={() => navigate('/forgot-password')}
+                >
+                  Forgot password?
+                </button>
+              </div>
             </div>
 
             <Button
@@ -120,6 +129,26 @@ const LoginForm = () => {
               {isSubmitting ? "Submitting..." : "Login"}
             </Button>
           </form>
+          <div className="mt-4">
+            <Button
+              variant="outline"
+              className="w-full text-base py-2 rounded-xl cursor-pointer"
+              onClick={() => navigate('/login-otp')}
+            >
+              Login with OTP
+            </Button>
+          </div>
+
+          <div className="mt-4 text-center text-sm text-gray-600">
+            Don’t have an account?{" "}
+            <button
+              type="button"
+              className="text-blue-500 hover:underline font-medium cursor-pointer"
+              onClick={() => navigate('/signup')}
+            >
+              Sign up
+            </button>
+          </div>
         </div>
       </div>
     </div>

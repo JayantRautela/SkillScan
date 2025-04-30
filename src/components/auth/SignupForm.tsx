@@ -145,6 +145,14 @@ const SignupForm = () => {
             {isSubmitting ? "Submitting..." : "Sign Up"}
           </Button>
         </form>
+        <div className="mt-4 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <button
+            className="text-blue-500 cursor-pointer hover:underline font-medium"
+            onClick={() => navigate('/login')}
+          >Login
+          </button>
+        </div>
       </div>
     </div>
   );
