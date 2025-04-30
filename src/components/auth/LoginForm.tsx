@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface FormState {
   username: string;
@@ -46,12 +47,16 @@ const LoginForm = () => {
 
       console.log(`Upload Success: ${response}`);
       if (response.status === 200) {
-        toast.success("User Logged In");
+        toast.success("User Logged In",{
+          icon: <CheckCircle className="text-green-600 w-5 h-5" />
+        });
         navigate('/');
       }
     } catch (error: any) {
       const message = error?.response?.data?.message || error?.message || "Some error occurred";
-      toast.error(message);
+      toast.error(message, {
+        icon: <XCircle className="text-red-600 w-5 h-5" />
+      });
     } finally {
       setIsSubmitting(false);
       setFormData({ 

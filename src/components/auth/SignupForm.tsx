@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface FormState {
   username: string;
@@ -15,18 +16,16 @@ interface FormState {
 const SignupForm = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormState>(
-    {
-      username: "",
-      email: "",
-      password : "",
-    }
-  );
+  const [formData, setFormData] = useState<FormState>({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({...prev, [name]: value}));
-  }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,33 +38,41 @@ const SignupForm = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await axios.post('http://localhost:3000/api/v1/users/register',
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/users/register",
         sendFormData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          withCredentials: true
+          withCredentials: true,
         }
       );
 
       console.log(`Upload Success: ${response}`);
       if (response.status === 201) {
-        toast.success("User Registered Successfully");
-        navigate('/login');
+        toast.success("User Registered Successfully", {
+          icon: <CheckCircle className="text-green-600 w-5 h-5" />,
+        });
+        navigate("/login");
       }
     } catch (error: any) {
-      const message = error?.response?.data?.message || error?.message || "Some error occurred";
-      toast.error(message);
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Some error occurred";
+      toast.error(message, {
+        icon: <XCircle className="text-red-600 w-5 h-5" />,
+      });
     } finally {
       setIsSubmitting(false);
-      setFormData({ 
-        username: "", 
+      setFormData({
+        username: "",
         email: "",
-        password: "" 
+        password: "",
       });
     }
-  }
+  };
 
   return (
     <div className="min-h-screen w-full bg-white flex items-center justify-center px-4">
