@@ -5,6 +5,7 @@ import { Toaster } from "./components/ui/sonner";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import OtpLogin from "./pages/OtpLogin";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: '/login-otp',
     element: <OtpLogin />
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword />
   },
   { 
     path: "*", 
