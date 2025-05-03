@@ -6,14 +6,28 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { AppDispatch} from "@/redux/store";
+import { setUser } from "@/redux/authSlice";
 
 interface FormState {
   username: string;
   password: string;
 }
 
+interface ServerResponse {
+  message: string;
+  user: {
+    userId: string,
+    username: string,
+    email: string
+  };
+  status: number;
+}
+
 const LoginForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormState>({
     username: "",
@@ -28,15 +42,13 @@ const LoginForm = () => {
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const sendFormData = new FormData();
-
-    sendFormData.append("password", formData.password);
-    sendFormData.append("username", formData.username);
-
     try {
       setIsSubmitting(true);
-      const response = await axios.post('http://localhost:2000/api/v1/users/login',
-        sendFormData,
+      const response = await axios.post<ServerResponse>('http://localhost:2000/api/v1/users/login',
+        {
+          username: formData.username,
+          password: formData.password,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -44,9 +56,11 @@ const LoginForm = () => {
           withCredentials: true
         }
       );
+      console.log(response)
 
       console.log(`Upload Success: ${response}`);
       if (response.status === 200) {
+        dispatch(setUser(response.data.user));
         toast.success("User Logged In",{
           icon: <CheckCircle className="text-green-600 w-5 h-5" />
         });

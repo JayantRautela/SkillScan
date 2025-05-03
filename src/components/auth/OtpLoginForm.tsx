@@ -4,19 +4,23 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { setUser } from "@/redux/authSlice";
+import { CheckCircle } from "lucide-react";
 
-interface LoginResponse {
-  user: {
-    id: number;
-    email: string;
-    username: string;
-    fullname: string;
-  };
+interface ServerResponse {
   message: string;
-  success: true;
+  user: {
+    userId: string;
+    username: string;
+    email: string;
+  };
+  status: number;
 }
 
 const OtpLoginForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState<"send" | "verify">("send");
@@ -49,7 +53,7 @@ const OtpLoginForm = () => {
 
     try {
       setLoadingState(true);
-      const res = await axios.post<LoginResponse>(
+      const response = await axios.post<ServerResponse>(
         "http://localhost:2000/api/v1/users/verifyOtp",
         {
           email,
@@ -57,10 +61,14 @@ const OtpLoginForm = () => {
         },
         { withCredentials: true }
       );
-      console.log(res);
 
-      toast.success("Logged in successfully");
-      navigate("/");
+      if (response.status === 200) {
+        dispatch(setUser(response.data.user));
+        toast.success("User Logged In", {
+          icon: <CheckCircle className="text-green-600 w-5 h-5" />,
+        });
+        navigate("/");
+      }
     } catch (error: any) {
       console.log(error);
       if (error.response.data.message) {
