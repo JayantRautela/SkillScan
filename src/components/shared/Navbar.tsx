@@ -2,9 +2,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../ui/button';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user } = useSelector((store: any) => store.auth);
 
   const navigate = useNavigate();
 
@@ -28,7 +32,31 @@ const Navbar = () => {
         </button>
       </div>
       <div className="hidden md:block">
-        <Button className='bg-blue-500 px-6 cursor-pointer hover:bg-blue-600' onClick={clickHandler}>Sign Up</Button>
+        {!user ? (
+          <Button className='bg-blue-500 px-6 cursor-pointer hover:bg-blue-600' onClick={clickHandler}>Sign Up</Button>
+        ) : (
+            <Popover>
+            <PopoverTrigger asChild>
+              <Avatar className="cursor-pointer">
+                <AvatarImage src="user?.profile?.profilePhoto" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              <div className="flex gap-4 space-y-2">
+                <Avatar>
+                  <AvatarImage src="user?.profile?.profilePhoto" />
+                </Avatar>
+                <div>
+                  <h4 className="font-medium">{user?.fullname}</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {user?.profile?.bio}
+                  </p>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
       </div>
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-black text-white flex flex-col items-center gap-4 py-4 md:hidden z-10">
