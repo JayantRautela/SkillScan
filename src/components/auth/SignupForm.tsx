@@ -39,11 +39,11 @@ const SignupForm = () => {
     try {
       setIsSubmitting(true);
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/register",
+        "http://localhost:2000/api/v1/users/register",
         sendFormData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
           withCredentials: true,
         }

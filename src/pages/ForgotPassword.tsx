@@ -26,7 +26,7 @@ const ForgotPassword = () => {
     try {
       setSubmitting(true);
       const res = await axios.post<ServerResponse>(
-        "http://localhost:3333/api/v1/users/forgot-password",
+        "http://localhost:2000/api/v1/users/forgotPassword",
         { email },
         {
           headers: {

@@ -30,7 +30,7 @@ const OtpLoginForm = () => {
     try {
       setLoadingState(true);
       await axios.post(
-        "http://localhost:3333/api/v1/users/sendOtp",
+        "http://localhost:2000/api/v1/users/sendOtp",
         { email },
         { withCredentials: true }
       );
@@ -50,7 +50,7 @@ const OtpLoginForm = () => {
     try {
       setLoadingState(true);
       const res = await axios.post<LoginResponse>(
-        "http://localhost:3000/api/v1/users/verifyOtp",
+        "http://localhost:2000/api/v1/users/verifyOtp",
         {
           email,
           otp: Number(otp),

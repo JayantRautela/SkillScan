@@ -35,7 +35,7 @@ const ResetPassword = () => {
     try {
       setSubmitting(true);
       const res = await axios.post<ServerResponse>(
-        "http://localhost:3333/api/v1/users/reset-password",
+        "http://localhost:2000/api/v1/users/resetPassword",
         { token, newPassword },
         {
           headers: {
