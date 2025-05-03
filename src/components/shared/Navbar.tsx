@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/authSlice';
 import { toast } from 'sonner';
 import { AppDispatch } from '@/redux/store';
+import axios from 'axios';
 
 interface ServerResponse {
   status: number;
@@ -28,7 +29,7 @@ const Navbar = () => {
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get<ServerResponse>(`http://localhoat:2000/logout`, {
+      const res = await axios.get<ServerResponse>(`http://localhost:2000/api/v1/users/logout`, {
         withCredentials: true,
       });
       if (res.status === 200) {
