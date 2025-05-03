@@ -20,7 +20,8 @@ interface ServerResponse {
   user: {
     userId: string,
     username: string,
-    email: string
+    email: string,
+    profilePicture: string,
   };
   status: number;
 }

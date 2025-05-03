@@ -11,6 +11,7 @@ interface FormState {
   username: string;
   email: string;
   password: string;
+  file: File | null;
 }
 
 const SignupForm = () => {
@@ -20,11 +21,18 @@ const SignupForm = () => {
     username: "",
     email: "",
     password: "",
+    file: null,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFormData((prev) => ({ ...prev, file: e.target.files![0] }));
+    }
   };
 
   const submitForm = async (e: React.FormEvent) => {
@@ -35,6 +43,9 @@ const SignupForm = () => {
     sendFormData.append("email", formData.email);
     sendFormData.append("password", formData.password);
     sendFormData.append("username", formData.username);
+    if (formData.file) {
+      sendFormData.append('file', formData.file);
+    }
 
     try {
       setIsSubmitting(true);
@@ -43,7 +54,7 @@ const SignupForm = () => {
         sendFormData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
           withCredentials: true,
         }
@@ -70,6 +81,7 @@ const SignupForm = () => {
         username: "",
         email: "",
         password: "",
+        file: null
       });
     }
   };
@@ -135,6 +147,22 @@ const SignupForm = () => {
               disabled={isSubmitting}
               value={formData.password}
               onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="profilePicture" className="text-base text-gray-700">
+              Profile Picture
+            </Label>
+            <Input
+              id="profilePicture"
+              type="file"
+              name="profilePicture"
+              accept="image/*"
+              placeholder="Enter your password"
+              className="text-base border border-gray-300 focus:ring-2 focus:ring-blue-400 cursor-pointer"
+              disabled={isSubmitting}
+              onChange={handleFileChange}
             />
           </div>
 
