@@ -50,7 +50,7 @@ const SignupForm = () => {
     try {
       setIsSubmitting(true);
       const response = await axios.post(
-        "http://localhost:2000/api/v1/users/register",
+        "https://skillscan-backend-production.up.railway.app/api/v1/users/register",
         sendFormData,
         {
           headers: {

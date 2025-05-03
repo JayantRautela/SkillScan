@@ -34,7 +34,7 @@ const OtpLoginForm = () => {
     try {
       setLoadingState(true);
       await axios.post(
-        "http://localhost:2000/api/v1/users/sendOtp",
+        "https://skillscan-backend-production.up.railway.app/api/v1/users/sendOtp",
         { email },
         { withCredentials: true }
       );
@@ -54,7 +54,7 @@ const OtpLoginForm = () => {
     try {
       setLoadingState(true);
       const response = await axios.post<ServerResponse>(
-        "http://localhost:2000/api/v1/users/verifyOtp",
+        "https://skillscan-backend-production.up.railway.app/api/v1/users/verifyOtp",
         {
           email,
           otp: Number(otp),

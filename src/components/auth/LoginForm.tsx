@@ -45,7 +45,7 @@ const LoginForm = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await axios.post<ServerResponse>('http://localhost:2000/api/v1/users/login',
+      const response = await axios.post<ServerResponse>('https://skillscan-backend-production.up.railway.app/api/v1/users/login',
         {
           username: formData.username,
           password: formData.password,
