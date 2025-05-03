@@ -1,15 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Button } from '../ui/button';
-import { useState } from 'react';
-import { CheckCircle, Menu, X, XCircle } from 'lucide-react';
-import { useSelector } from 'react-redux';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { useDispatch } from 'react-redux';
-import { setUser } from '@/redux/authSlice';
-import { toast } from 'sonner';
-import { AppDispatch } from '@/redux/store';
-import axios from 'axios';
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
+import { useState } from "react";
+import { CheckCircle, Menu, X, XCircle } from "lucide-react";
+import { useSelector } from "react-redux";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/authSlice";
+import { toast } from "sonner";
+import { AppDispatch } from "@/redux/store";
+import axios from "axios";
 
 interface ServerResponse {
   status: number;
@@ -24,14 +24,17 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
-    navigate('/signup')
-  }
+    navigate("/signup");
+  };
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get<ServerResponse>(`http://localhost:2000/api/v1/users/logout`, {
-        withCredentials: true,
-      });
+      const res = await axios.get<ServerResponse>(
+        `https://skillscan-backend-production.up.railway.app/api/v1/users/logout`,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.status === 200) {
         dispatch(setUser(null));
         navigate("/home");
@@ -40,45 +43,60 @@ const Navbar = () => {
         });
       }
     } catch (error: any) {
-        const message =
-          error?.response?.data?.message ||
-          error?.message ||
-          "Some error occurred";
-        toast.error(message, {
-          icon: <XCircle className="text-red-600 w-5 h-5" />,
-        });
-      }
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Some error occurred";
+      toast.error(message, {
+        icon: <XCircle className="text-red-600 w-5 h-5" />,
+      });
+    }
   };
 
   return (
     <nav className="h-16 w-full flex items-center justify-between px-6 bg-black text-white relative md:px-10">
-      <Link to='/' className="tracking-tighter text-lg cursor-pointer">
+      <Link
+        to="/"
+        className="tracking-tighter text-lg cursor-pointer font-bold"
+      >
         SkillScan
       </Link>
-      <div className='hidden md:flex gap-10'>
-        <Link to='/'>Resume Analysis</Link>
-        <Link to='/about'>Learning Path</Link>
-        <Link to='/contact'>Success Stories</Link>
+
+      <div className="hidden md:flex gap-10">
+        <Link to="/">Resume Analysis</Link>
+        <Link to="/learning-path">Learning Path</Link>
+        <Link to="/success-stories">Success Stories</Link>
       </div>
+
       <div className="md:hidden">
-        <button onClick={() => setMenuOpen(prev => !prev)}>
-          {menuOpen ? <X className="cursor-pointer w-6 h-6" /> : <Menu className="w-6 h-6 cursor-pointer" />}
+        <button onClick={() => setMenuOpen((prev) => !prev)}>
+          {menuOpen ? (
+            <X className="cursor-pointer w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6 cursor-pointer" />
+          )}
         </button>
       </div>
+
       <div className="hidden md:block">
         {!user ? (
-          <Button className='bg-blue-500 px-6 cursor-pointer hover:bg-blue-600' onClick={clickHandler}>Sign Up</Button>
+          <Button
+            className="bg-blue-500 px-6 cursor-pointer hover:bg-blue-600"
+            onClick={clickHandler}
+          >
+            Sign Up
+          </Button>
         ) : (
-            <Popover>
+          <Popover>
             <PopoverTrigger asChild>
               <Avatar className="cursor-pointer">
                 <AvatarImage src={user?.profilePicture} />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>U</AvatarFallback>
               </Avatar>
             </PopoverTrigger>
             <PopoverContent className="w-80">
-              <div className="flex gap-4 space-y-2 flex-col">
-                <div className="flex gap-4">
+              <div className="flex flex-col gap-4">
+                <div className="flex gap-4 items-center">
                   <Avatar>
                     <AvatarImage src={user?.profilePicture} />
                   </Avatar>
@@ -86,32 +104,60 @@ const Navbar = () => {
                     <h4 className="font-medium">{user?.username}</h4>
                   </div>
                 </div>
-                <div>
-                  <Button className='cursor-pointer' onClick={logoutHandler}>LogOut</Button>
-                </div>
+                <Button onClick={logoutHandler}>Logout</Button>
               </div>
             </PopoverContent>
           </Popover>
         )}
       </div>
+
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-black text-white flex flex-col items-center gap-4 py-4 md:hidden z-10">
-          <Link to='/' onClick={() => setMenuOpen(false)}>Resume Analysis</Link>
-          <Link to='/about' onClick={() => setMenuOpen(false)}>Learning Path</Link>
-          <Link to='/contact' onClick={() => setMenuOpen(false)}>Success Stories</Link>
-          <Button
-            className="bg-blue-500 px-6 cursor-pointer hover:bg-blue-600"
-            onClick={() => {
-              setMenuOpen(false)
-              clickHandler()
-            }}
-          >
-            Sign Up
-          </Button>
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            Resume Analysis
+          </Link>
+          <Link to="/learning-path" onClick={() => setMenuOpen(false)}>
+            Learning Path
+          </Link>
+          <Link to="/success-stories" onClick={() => setMenuOpen(false)}>
+            Success Stories
+          </Link>
+
+          {!user ? (
+            <Button
+              className="bg-blue-500 px-6 hover:bg-blue-600"
+              onClick={() => {
+                setMenuOpen(false);
+                clickHandler();
+              }}
+            >
+              Sign Up
+            </Button>
+          ) : (
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={user?.profilePicture} />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+                <span>{user.username}</span>
+              </div>
+              <Button
+                variant="outline"
+                className="text-white border-white hover:bg-white hover:text-black"
+                onClick={() => {
+                  logoutHandler();
+                  setMenuOpen(false);
+                }}
+              >
+                Logout
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
