@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { CheckCircle, Menu, X, XCircle } from "lucide-react";
+import { CheckCircle, Menu, X, XCircle, User } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -97,16 +97,21 @@ const Navbar = () => {
           <Popover>
             <PopoverTrigger asChild>
               <Avatar className="cursor-pointer">
-                <AvatarImage src={user?.profilePicture} />
-                <AvatarFallback>U</AvatarFallback>
+                {user?.profilePicture && <AvatarImage src={user.profilePicture} />}
+                <AvatarFallback>
+                  <User className="text-black" />
+                </AvatarFallback>
               </Avatar>
             </PopoverTrigger>
             <PopoverContent className="w-80">
               <div className="flex flex-col gap-4">
                 <div className="flex gap-4 items-center">
-                  <Avatar>
-                    <AvatarImage src={user?.profilePicture} />
-                  </Avatar>
+                <Avatar className="cursor-pointer">
+                  {user?.profilePicture && <AvatarImage src={user.profilePicture} />}
+                  <AvatarFallback>
+                    <User className="text-black" />
+                  </AvatarFallback>
+                </Avatar>
                   <div>
                     <h4 className="font-medium">{user?.username}</h4>
                   </div>
@@ -154,8 +159,10 @@ const Navbar = () => {
             <div className="flex flex-col items-center gap-2">
               <div className="flex items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={user?.profilePicture} />
-                  <AvatarFallback>U</AvatarFallback>
+                  {user?.profilePicture && <AvatarImage src={user.profilePicture} />}
+                  <AvatarFallback>
+                    <User className="text-black" />
+                  </AvatarFallback>
                 </Avatar>
                 <span>{user.username}</span>
               </div>
