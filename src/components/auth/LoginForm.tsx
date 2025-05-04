@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch} from "@/redux/store";
 import { setUser } from "@/redux/authSlice";
 
@@ -29,11 +29,20 @@ interface ServerResponse {
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((store: any) => store.auth);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormState>({
     username: "",
     password: "",
   });
+
+  if (user) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-4xl text-gray-800">User is already Logged In</p>
+      </div>
+    )
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

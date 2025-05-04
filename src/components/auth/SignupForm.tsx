@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useSelector } from "react-redux";
 
 interface FormState {
   username: string;
@@ -17,12 +18,21 @@ interface FormState {
 const SignupForm = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { user } = useSelector((store: any) => store.auth);
   const [formData, setFormData] = useState<FormState>({
     username: "",
     email: "",
     password: "",
     file: null,
   });
+
+  if (user) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-4xl text-gray-800">User is already Logged In</p>
+      </div>
+    )
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

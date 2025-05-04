@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { setUser } from "@/redux/authSlice";
 import { CheckCircle } from "lucide-react";
@@ -25,8 +25,17 @@ const OtpLoginForm = () => {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState<"send" | "verify">("send");
   const [loading, setLoadingState] = useState(false);
+  const { user } = useSelector((store: any) => store.auth);
 
   const navigate = useNavigate();
+
+  if (user) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-4xl text-gray-800">User is already Logged In</p>
+      </div>
+    )
+  }
 
   const handleSendOtp = async () => {
     if (!email) return toast.error("email is required");
