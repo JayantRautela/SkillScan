@@ -37,7 +37,7 @@ const Navbar = () => {
       );
       if (res.status === 200) {
         dispatch(setUser(null));
-        navigate("/home");
+        navigate("/");
         toast.success(res.data.message, {
           icon: <CheckCircle className="text-green-600 w-5 h-5" />,
         });
