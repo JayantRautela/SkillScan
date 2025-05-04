@@ -12,6 +12,7 @@ import { logout, setUser } from './redux/authSlice';
 import axios from 'axios';
 import { AppDispatch } from "./redux/store";
 import { useEffect } from "react";
+import SuccessStories from "./pages/SuccessStories";
 
 interface ServerResponse {
   message: string;
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: '/reset-password',
     element: <ResetPassword />
+  },
+  {
+    path: '/success-stories',
+    element: <SuccessStories />
   },
   { 
     path: "*", 
