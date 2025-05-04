@@ -7,6 +7,22 @@ import NotFound from "./pages/NotFound";
 import OtpLogin from "./pages/OtpLogin";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { useDispatch } from 'react-redux';
+import { logout, setUser } from './redux/authSlice';
+import axios from 'axios';
+import { AppDispatch } from "./redux/store";
+import { useEffect } from "react";
+
+interface ServerResponse {
+  message: string;
+  user: {
+    userId: string,
+    username: string,
+    email: string,
+    profilePicture: string,
+  };
+  status: number;
+}
 
 const router = createBrowserRouter([
   {
@@ -40,6 +56,24 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const validateUser = async () => {
+      try {
+        const res = await axios.get<ServerResponse>('https://skillscan-backend-production.up.railway.app/api/v1/users/user', {
+          withCredentials: true
+        });
+
+        dispatch(setUser(res.data.user));
+      } catch (err) {
+        dispatch(logout());
+        localStorage.clear();
+      }
+    };
+
+      validateUser();
+  }, []);
 
   return (
     <>
