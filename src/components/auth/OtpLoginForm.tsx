@@ -56,6 +56,8 @@ const OtpLoginForm = () => {
         toast.error(message, {
           icon: <XCircle className="text-red-600 w-5 h-5" />
         });
+      } finally {
+        setLoadingState(false);
       }
   };
 
@@ -89,6 +91,7 @@ const OtpLoginForm = () => {
       }
     } finally {
       setLoadingState(false);
+      setEmail('');
     }
   };
 
