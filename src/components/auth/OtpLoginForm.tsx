@@ -58,6 +58,7 @@ const OtpLoginForm = () => {
         });
       } finally {
         setLoadingState(false);
+        setEmail('');
       }
   };
 
@@ -91,7 +92,7 @@ const OtpLoginForm = () => {
       }
     } finally {
       setLoadingState(false);
-      setEmail('');
+      setOtp('');
     }
   };
 
