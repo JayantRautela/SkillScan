@@ -56,9 +56,9 @@ const OtpLoginForm = () => {
         toast.error(message, {
           icon: <XCircle className="text-red-600 w-5 h-5" />
         });
+        setEmail('');
       } finally {
         setLoadingState(false);
-        setEmail('');
       }
   };
 
