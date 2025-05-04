@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { setUser } from "@/redux/authSlice";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface ServerResponse {
   message: string;
@@ -47,14 +47,16 @@ const OtpLoginForm = () => {
         { email },
         { withCredentials: true }
       );
-      toast.success("OTP sent to your registered email");
+      toast.success("OTP sent to your registered email", {
+        icon: <CheckCircle className="text-green-600 w-5 h-5" />
+      });
       setStep("verify");
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to send OTP");
-    } finally {
-      setLoadingState(false);
-    }
+    } catch (error: any) {
+        const message = error?.response?.data?.message || error?.message || "Some error occurred";
+        toast.error(message, {
+          icon: <XCircle className="text-red-600 w-5 h-5" />
+        });
+      }
   };
 
   const handleVerifyOtp = async () => {
