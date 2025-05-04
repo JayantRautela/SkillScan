@@ -4,6 +4,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import axios from "axios";
 import { toast } from "sonner";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface ServerResponse {
   message: string;
@@ -23,12 +24,16 @@ const ResetPassword = () => {
     e.preventDefault();
 
     if (!newPassword || !confirmPassword) {
-      toast.error("Please fill out both fields");
+      toast.error("Please fill out both fields", {
+          icon: <XCircle className="text-red-600 w-5 h-5" />
+      });
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error("Passwords do not match", {
+        icon: <XCircle className="text-red-600 w-5 h-5" />
+      });
       return;
     }
 
@@ -44,13 +49,17 @@ const ResetPassword = () => {
         }
       );
 
-      toast.success(res.data.message || "Password reset successfully");
+      toast.success(res.data.message || "Password reset successfully", {
+        icon: <CheckCircle className="text-green-600 w-5 h-5" />
+      });
       setTimeout(() => navigate("/login"), 1500);
     } catch (error: any) {
       toast.error(
         error.response?.data?.message ||
           error.message ||
-          "Failed to reset password"
+          "Failed to reset password", {
+            icon: <XCircle className="text-red-600 w-5 h-5" />
+        }
       );
     } finally {
       setSubmitting(false);

@@ -27,6 +27,10 @@ const Navbar = () => {
     navigate("/signup");
   };
 
+  const redirectToLogin = () => {
+    navigate('/login');
+  }
+
   const logoutHandler = async () => {
     try {
       const res = await axios.get<ServerResponse>(
@@ -80,12 +84,15 @@ const Navbar = () => {
 
       <div className="hidden md:block">
         {!user ? (
-          <Button
+          <div className="space-x-4">
+            <Button
             className="bg-blue-500 px-6 cursor-pointer hover:bg-blue-600"
             onClick={clickHandler}
-          >
-            Sign Up
-          </Button>
+            >
+              Sign Up
+            </Button>
+            <Button className="w-20 cursor-pointer" onClick={redirectToLogin}>Login</Button>
+          </div>
         ) : (
           <Popover>
             <PopoverTrigger asChild>
@@ -104,7 +111,7 @@ const Navbar = () => {
                     <h4 className="font-medium">{user?.username}</h4>
                   </div>
                 </div>
-                <Button onClick={logoutHandler}>Logout</Button>
+                <Button onClick={logoutHandler} className="cursor-pointer">Logout</Button>
               </div>
             </PopoverContent>
           </Popover>
@@ -124,15 +131,25 @@ const Navbar = () => {
           </Link>
 
           {!user ? (
+            <div className="space-x-4">
             <Button
-              className="bg-blue-500 px-6 hover:bg-blue-600"
-              onClick={() => {
-                setMenuOpen(false);
-                clickHandler();
-              }}
+            className="bg-blue-500 px-6 cursor-pointer hover:bg-blue-600"
+            onClick={() => {
+              setMenuOpen(false);
+              clickHandler();
+            }}
             >
               Sign Up
             </Button>
+            <Button className="w-20 cursor-pointer" 
+              onClick={() => {              
+                setMenuOpen(false);
+                redirectToLogin();
+              }}
+            >
+                Login
+              </Button>
+          </div>
           ) : (
             <div className="flex flex-col items-center gap-2">
               <div className="flex items-center gap-2">
@@ -143,8 +160,7 @@ const Navbar = () => {
                 <span>{user.username}</span>
               </div>
               <Button
-                variant="outline"
-                className="text-white border-white hover:bg-white hover:text-black"
+                className="cursor-pointer"
                 onClick={() => {
                   logoutHandler();
                   setMenuOpen(false);

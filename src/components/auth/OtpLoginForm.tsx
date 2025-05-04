@@ -31,14 +31,17 @@ const OtpLoginForm = () => {
 
   if (user) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="w-full h-screen flex items-center justify-center flex-col gap-5">
         <p className="text-4xl text-gray-800">User is already Logged In</p>
+        <Button className="px-6 py-3 bg-blue-600 cursor-pointer text-white rounded-xl hover:bg-blue-700 transition" onClick={() => navigate('/')}>Back To Home</Button>
       </div>
     )
   }
 
   const handleSendOtp = async () => {
-    if (!email) return toast.error("email is required");
+    if (!email) return toast.error("email is required", {
+      icon: <XCircle className="text-red-600 w-5 h-5" />
+    });
 
     try {
       setLoadingState(true);
@@ -86,9 +89,13 @@ const OtpLoginForm = () => {
     } catch (error: any) {
       console.log(error);
       if (error.response.data.message) {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message, {
+          icon: <XCircle className="text-red-600 w-5 h-5" />
+        });
       } else {
-        toast.error(error.message);
+        toast.error(error.message, {
+          icon: <XCircle className="text-red-600 w-5 h-5" />
+        });
       }
     } finally {
       setLoadingState(false);

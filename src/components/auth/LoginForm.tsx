@@ -38,8 +38,9 @@ const LoginForm = () => {
 
   if (user) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="w-full h-screen flex items-center justify-center flex-col gap-5">
         <p className="text-4xl text-gray-800">User is already Logged In</p>
+        <Button className="px-6 py-3 bg-blue-600 cursor-pointer text-white rounded-xl hover:bg-blue-700 transition" onClick={() => navigate('/')}>Back To Home</Button>
       </div>
     )
   }

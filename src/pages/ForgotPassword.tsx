@@ -4,6 +4,7 @@ import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface ServerResponse {
   message: string;
@@ -19,7 +20,9 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     if (!email.trim()) {
-      toast.error("Please enter your email");
+      toast.error("Please enter your email", {
+        icon: <XCircle className="text-red-600 w-5 h-5" />
+      });
       return;
     }
 
@@ -35,12 +38,15 @@ const ForgotPassword = () => {
         }
       );
 
-      toast.success(res.data.message || "Password reset link sent to your email");
+      toast.success(res.data.message || "Password reset link sent to your email", {
+        icon: <CheckCircle className="text-green-600 w-5 h-5" />
+      });
       setTimeout(() => navigate("/reset-password"), 1500);
     } catch (error: any) {
       toast.error(
-        error.response?.data?.message || error.message || "Something went wrong"
-      );
+        error.response?.data?.message || error.message || "Something went wrong", {
+          icon: <XCircle className="text-red-600 w-5 h-5" />
+      });
     } finally {
       setSubmitting(false);
     }
