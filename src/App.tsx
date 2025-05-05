@@ -14,6 +14,7 @@ import { AppDispatch } from "./redux/store";
 import { useEffect } from "react";
 import SuccessStories from "./pages/SuccessStories";
 import ResumeDetails from "./pages/ResumeAnalysis";
+import ForgotPasswordRedirect from "./components/ForgotPasswordRedirect";
 
 interface ServerResponse {
   message: string;
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: '/success-stories',
     element: <SuccessStories />
+  },
+  {
+    path: '/redirect',
+    element: <ForgotPasswordRedirect />
   },
   {
     path: '/resume-analysis',
