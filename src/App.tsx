@@ -13,6 +13,7 @@ import axios from 'axios';
 import { AppDispatch } from "./redux/store";
 import { useEffect } from "react";
 import SuccessStories from "./pages/SuccessStories";
+import ResumeDetails from "./pages/ResumeAnalysis";
 
 interface ServerResponse {
   message: string;
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: '/success-stories',
     element: <SuccessStories />
+  },
+  {
+    path: '/resume-analysis',
+    element: <ResumeDetails />
   },
   { 
     path: "*", 
