@@ -101,7 +101,7 @@ const UploadResume = ({ open, onOpenChange }: PdfUploadDialogProps) => {
 
     try {
       const response: any = await axios.post(
-        "https://skillscan-backend-production.up.railway.app/api/v1/ai/analyse-resume",
+        "https://skillscan-backend-production.up.railway.app/api/v1/resume/analyse-resume",
         formData,
         {
           headers: {
