@@ -29,7 +29,7 @@ const ForgotPassword = () => {
     try {
       setSubmitting(true);
       const res = await axios.post<ServerResponse>(
-        "http://localhost:2000/api/v1/users/forgotPassword",
+        "http://skillscan-backend-production.up.railway.app/api/v1/users/forgotPassword",
         { email },
         {
           headers: {
