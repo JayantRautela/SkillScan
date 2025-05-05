@@ -40,7 +40,7 @@ const ResetPassword = () => {
     try {
       setSubmitting(true);
       const res = await axios.post<ServerResponse>(
-        "http://skillscan-backend-production.up.railway.app/api/v1/users/resetPassword",
+        "https://skillscan-backend-production.up.railway.app/api/v1/users/resetPassword",
         { token, newPassword },
         {
           headers: {
