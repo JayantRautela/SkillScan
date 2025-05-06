@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import SuccessStories from "./pages/SuccessStories";
 import ResumeDetails from "./pages/ResumeAnalysis";
 import ForgotPasswordRedirect from "./components/ForgotPasswordRedirect";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 interface ServerResponse {
   message: string;
@@ -62,7 +63,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/resume-analysis',
-    element: <ResumeDetails />
+    element: (
+      <ProtectedRoute>
+        <ResumeDetails />
+      </ProtectedRoute>
+    )
   },
   { 
     path: "*", 
