@@ -98,7 +98,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white flex items-center justify-center px-4">
+    <div className="min-h-screen w-full bg-white flex items-center justify-center px-4 bg-gradient-to-r from-neutral-300 to-stone-400">
       <div className="w-full max-w-xl p-10 border border-gray-200 rounded-2xl shadow-sm bg-[#fdfdfd]">
         <section className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-black">
