@@ -91,7 +91,7 @@ const ResumeDetails = () => {
   );
 
   return (
-    <div>
+    <div className="w-full min-h-screen">
       <Navbar />
       <div className="min-h-screen bg-black text-white px-4 py-8 md:px-10">
         <div className="max-w-5xl mx-auto">
