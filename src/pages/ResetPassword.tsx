@@ -112,7 +112,7 @@ const ResetPassword = () => {
 
         <Button
           type="submit"
-          className="w-full bg-[#1e88e5] hover:bg-[#1976d2] py-6 text-base"
+          className="w-full bg-[#1e88e5] hover:bg-[#1976d2] py-6 text-base cursor-pointer"
           disabled={submitting}
         >
           {submitting ? "Resetting..." : "Reset Password"}

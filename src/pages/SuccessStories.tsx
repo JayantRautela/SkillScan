@@ -58,7 +58,7 @@ export default function SuccessStories() {
   }, []);
 
   return (
-    <div className="bg-black w-full h-screen">
+    <div className="bg-black w-full min-h-screen">
       <Navbar />
       <div className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-8 text-center text-white">Success Stories</h1>
