@@ -104,7 +104,8 @@ const OtpLoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md px-6 bg-gradient-to-r from-neutral-300 to-stone-400">
+    <div className="w-full h-screen bg-gradient-to-r from-neutral-300 to-stone-400">
+      <div className="w-full max-w-md px-6">
       <h1 className="text-3xl font-bold mb-6">Log In with OTP</h1>
 
       {step === "send" ? (
@@ -142,7 +143,8 @@ const OtpLoginForm = () => {
             {loading ? "Verifying..." : "Verify OTP"}
           </Button>
         </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
