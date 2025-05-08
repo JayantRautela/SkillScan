@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "motion/react";
 import Navbar from "@/components/shared/Navbar";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 type Story = {
   username: string;
@@ -11,6 +13,7 @@ type Story = {
 };
 
 export default function SuccessStories() {
+  const navigate = useNavigate();
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -58,7 +61,7 @@ export default function SuccessStories() {
   }, []);
 
   return (
-    <div className="bg-black w-full min-h-screen">
+    <div className="bg-black w-full min-h-screen relative">
       <Navbar />
       <div className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-8 text-center text-white">Success Stories</h1>
@@ -97,6 +100,16 @@ export default function SuccessStories() {
         </div>
       )}
     </div>
+    <div className="flex justify-end max-w-6xl mx-auto p-6 md:p-0">
+        <Button
+          className="fixed bottom-6 right-6 md:static md:ml-auto bg-blue-600 text-white hover:bg-blue-700 mt-2 md:mt-0 cursor-pointer text-lg p-5 mb-2"
+          onClick={() => {
+            navigate('/add-story')
+          }}
+        >
+          Add Story
+        </Button>
+      </div>
     </div>
   );
 }
