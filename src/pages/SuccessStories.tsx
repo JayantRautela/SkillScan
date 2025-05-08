@@ -5,6 +5,9 @@ import { motion } from "motion/react";
 import Navbar from "@/components/shared/Navbar";
 import { Button } from "@/components/ui/button";
 import AddStoryModal from "@/components/AddStory";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { User } from "lucide-react";
 
 type Story = {
   username: string;
@@ -13,51 +16,23 @@ type Story = {
 };
 
 export default function SuccessStories() {
+  const { user } = useSelector((store: any) => store.auth);
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setStories([
-        {
-          username: "Alice Johnson",
-          profilePicture: "https://randomuser.me/api/portraits/women/1.jpg",
-          description: "After joining the platform, I landed my dream job at a startup within 2 months!",
-        },
-        {
-          username: "Marcus Lee",
-          profilePicture: "",
-          description: "The mentorship and resources here helped me transition into a tech career.",
-        },
-        {
-          username: "Priya Sharma",
-          profilePicture: "https://randomuser.me/api/portraits/women/44.jpg",
-          description: "I started with no experience and now I'm a front-end developer at a major company!",
-        },
-        {
-          username: "Daniel Green",
-          profilePicture: "",
-          description: "The community support gave me confidence to apply for international positions—and I got one!",
-        },
-        {
-          username: "Daniel Green",
-          profilePicture: "",
-          description: "The community support gave me confidence to apply for international positions—and I got one!",
-        },
-        {
-          username: "Daniel Green",
-          profilePicture: "",
-          description: "The community support gave me confidence to apply for international positions—and I got one!",
-        },
-        {
-          username: "Daniel Green",
-          profilePicture: "",
-          description: "The community support gave me confidence to apply for international positions—and I got one!",
-        },
-      ]);
-      setLoading(false);
-    }, 1000);
+    const fetchStories = async () => {
+      try {
+        const response: any = await axios.get("https://skillscan-backend-production.up.railway.app/api/v1/success-story/getStories");
+        setStories(response.data.stories);
+      } catch (error) {
+        console.error("Failed to fetch stories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStories();
   }, []);
 
   return (
@@ -85,7 +60,7 @@ export default function SuccessStories() {
                       <AvatarImage src={story.profilePicture} alt={story.username} />
                     ) : (
                       <AvatarFallback>
-                        {story.username.charAt(0).toUpperCase()}
+                        <User className="text-black" />
                       </AvatarFallback>
                     )}
                   </Avatar>
@@ -111,15 +86,22 @@ export default function SuccessStories() {
       <AddStoryModal
         open={showModal}
         onClose={() => setShowModal(false)}
-        onSubmit={({ description }) => {
-          const currentUser = {
-            username: "John Doe", // Replace with real auth context
-            profilePicture: "https://example.com/user.jpg",
-          };
-          setStories((prev) => [
-            { username: currentUser.username, profilePicture: currentUser.profilePicture, description },
-            ...prev,
-          ]);
+        onSubmit={async ({ description }) => {
+          try {
+            const newStory = {
+              username: user.username,
+              profilePicture: user.profilePicture,
+              description,
+            };
+            const response = await axios.post("https://skillscan-backend-production.up.railway.app/api/v1/success-story/addStory", newStory, {
+              withCredentials: true
+            });
+            setStories((prev) => [response.data as Story, ...prev]);
+          } catch (error) {
+            console.error("Failed to add story:", error);
+          } finally {
+            setShowModal(false);
+          }
         }}
       />
     </div>
