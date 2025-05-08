@@ -56,15 +56,15 @@ export default function SuccessStories() {
               <Card className="p-4 shadow-md">
                 <div className="flex items-center gap-4 mb-3">
                   <Avatar>
-                    {story.profilePicture ? (
-                      <AvatarImage src={story.profilePicture} alt={story.username} />
+                    {user.profilePicture ? (
+                      <AvatarImage src={user.profilePicture} alt={user.username} />
                     ) : (
                       <AvatarFallback>
                         <User className="text-black" />
                       </AvatarFallback>
                     )}
                   </Avatar>
-                  <span className="font-medium text-lg">{story.username}</span>
+                  <span className="font-medium text-lg">{user.username}</span>
                 </div>
                 <CardContent className="p-0 text-sm text-muted-foreground">
                   {story.description}
