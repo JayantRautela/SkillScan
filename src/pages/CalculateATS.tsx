@@ -33,7 +33,7 @@ const CalculateATS = () => {
     }
 
     const formData = new FormData();
-    formData.append("resume", file);
+    formData.append("file", file);
     formData.append("jobDescription", jobDescription);
 
     setLoading(true);
