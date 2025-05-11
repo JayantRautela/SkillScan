@@ -16,6 +16,7 @@ import SuccessStories from "./pages/SuccessStories";
 import ResumeDetails from "./pages/ResumeAnalysis";
 import ForgotPasswordRedirect from "./components/ForgotPasswordRedirect";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CalculateATS from "./pages/CalculateATS";
 
 interface ServerResponse {
   message: string;
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <ResumeDetails />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/calculate-ats',
+    element: (
+      <ProtectedRoute>
+        <CalculateATS />
       </ProtectedRoute>
     )
   },
