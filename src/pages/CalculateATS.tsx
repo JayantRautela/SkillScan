@@ -46,6 +46,8 @@ const CalculateATS = () => {
         withCredentials: true
       });
 
+      console.log(response);
+
       setScore(response.data.score);
       setMatched(response.data.matchedKeywords);
       setMissing(response.data.missingKeywords);
@@ -98,27 +100,31 @@ const CalculateATS = () => {
               <Progress value={score} />
               <Separator className="my-4" />
 
-              <div>
-                <h4 className="font-semibold mb-1">✅ Matched Keywords</h4>
-                <div className="flex flex-wrap gap-2 text-sm text-green-600">
-                  {matched.map((word, idx) => (
-                    <span key={idx} className="px-2 py-1 bg-green-100 rounded">
-                      {word}
-                    </span>
-                  ))}
+              { matched.length > 0 && (
+                <div>
+                  <h4 className="font-semibold mb-1">✅ Matched Keywords</h4>
+                  <div className="flex flex-wrap gap-2 text-sm text-green-600">
+                    {matched.map((word, idx) => (
+                      <span key={idx} className="px-2 py-1 bg-green-100 rounded">
+                        {word}
+                      </span>
+                    ))}
                 </div>
               </div>
+              )}
 
-              <div>
-                <h4 className="font-semibold mt-4 mb-1">❌ Missing Keywords</h4>
-                <div className="flex flex-wrap gap-2 text-sm text-red-600">
-                  {missing.map((word, idx) => (
-                    <span key={idx} className="px-2 py-1 bg-red-100 rounded">
-                      {word}
-                    </span>
-                  ))}
+              { missing.length > 0 && (
+                <div>
+                  <h4 className="font-semibold mt-4 mb-1">❌ Missing Keywords</h4>
+                  <div className="flex flex-wrap gap-2 text-sm text-red-600">
+                    {missing.map((word, idx) => (
+                      <span key={idx} className="px-2 py-1 bg-red-100 rounded">
+                        {word}
+                      </span>
+                    ))}
                 </div>
               </div>
+              )}
             </div>
           )}
         </CardContent>
