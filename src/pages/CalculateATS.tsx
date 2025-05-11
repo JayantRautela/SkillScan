@@ -42,7 +42,8 @@ const CalculateATS = () => {
       const response = await axios.post<ServerResponse>('https://skillscan-backend-production.up.railway.app/api/v1/resume/calculate-ats', formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-        },
+        }, 
+        withCredentials: true
       });
 
       setScore(response.data.score);
@@ -86,7 +87,7 @@ const CalculateATS = () => {
               />
             </div>
 
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} className="cursor-pointer">
               {loading ? "Calculating..." : "Get ATS Score"}
             </Button>
           </form>
