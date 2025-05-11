@@ -56,6 +56,7 @@ const CalculateATS = () => {
       alert("Failed to calculate ATS score.");
     } finally {
       setLoading(false);
+      setJobDescription('');
     }
   };
 
