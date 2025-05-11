@@ -97,7 +97,13 @@ const CalculateATS = () => {
           {score !== null && (
             <div className="mt-6 space-y-4">
               <h3 className="text-lg font-semibold">ATS Score: {score}%</h3>
-              <Progress value={score} />
+              <Progress value={score} indicatorClassName={`bg-gradient-to-r ${
+                score >= 75
+                  ? "from-green-400 to-green-600"
+                  : score >= 50
+                  ? "from-yellow-400 to-yellow-600"
+                  : "from-red-400 to-red-600"
+              }`} />
               <Separator className="my-4" />
 
               { matched.length > 0 && (
