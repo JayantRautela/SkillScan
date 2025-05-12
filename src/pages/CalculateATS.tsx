@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import Navbar from "@/components/shared/Navbar";
+import { toast } from "sonner";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface ServerResponse {
   success: boolean;
@@ -29,7 +31,9 @@ const CalculateATS = () => {
     e.preventDefault();
 
     if (!file || !jobDescription) {
-      return alert("Please provide both resume and job description.");
+      return toast("Please provide both resume and job description.", {
+        icon: <XCircle className="text-red-600 w-5 h-5" />
+      });
     }
 
     const formData = new FormData();
@@ -51,9 +55,14 @@ const CalculateATS = () => {
       setScore(response.data.score);
       setMatched(response.data.matchedKeywords);
       setMissing(response.data.missingKeywords);
+      toast.success(response.data.message || "ATS Score Fetched Successfully",{
+          icon: <CheckCircle className="text-green-600 w-5 h-5" />
+        });
     } catch (error: any) {
-      console.error("Error:", error.response?.data || error.message);
-      alert("Failed to calculate ATS score.");
+      const message = error?.response?.data?.message || error?.message || "Some error occurred";
+      toast.error(message, {
+        icon: <XCircle className="text-red-600 w-5 h-5" />
+      });
     } finally {
       setLoading(false);
       setJobDescription('');
@@ -90,7 +99,7 @@ const CalculateATS = () => {
               />
             </div>
 
-            <Button type="submit" disabled={loading} className="cursor-pointer">
+            <Button type="submit" disabled={loading} className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700">
               {loading ? "Calculating..." : "Get ATS Score"}
             </Button>
           </form>
